@@ -7,25 +7,27 @@ public class Project
     public string name;
     public float payRate;
     public Session[] allSessions;
-    public float GetAllWorkTime(bool billed = false, bool paid = false)
+    public float GetPartialWorkTime(bool invoiced = false, bool paid = false)
     {
-        float awt = 0f;
+        float pwt = 0f;
         if (allSessions.Length > 0)
         {
-            if (billed == false && paid == false)
+            for (int i = 0; i < allSessions.Length; i++)
             {
-                for (int i = 0; i < allSessions.Length; i++)
+                if (allSessions[i].invoiced == invoiced && allSessions[i].paid == paid)
                 {
-                    awt += allSessions[i].GetWorkTime();
+                    pwt += allSessions[i].GetWorkTime();
                 }
             }
-            else if (billed == true && paid == false)
-            {
-
-            }
+        }
+        return pwt;
     }
-                return awt;
-
-
+    public float GetTotalWorkTime(){
+        float twt = 0;
+        twt += GetPartialWorkTime(false, false);
+        twt += GetPartialWorkTime(false, true);
+        twt += GetPartialWorkTime(true, false);
+        twt += GetPartialWorkTime(true, true);
+        return twt;
     }
 }
