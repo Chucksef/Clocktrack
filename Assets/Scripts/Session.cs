@@ -10,7 +10,12 @@ public class Session : Entry
 
     public Entry[] allBreaks;
 
-    public float GetBreakTime()
+    //ALL FUNCTIONS GO HERE...
+
+    ///summary
+    ///Gets the total time, in seconds, of all the breaks taken during a Session
+    ///summary
+    public float GetTotalBreakTime()
     {
         float bt = 0f;
         if (allBreaks.Length > 0)
@@ -23,6 +28,9 @@ public class Session : Entry
         return bt;
     }
 
+    ///summary
+    ///Gets the time spent working, in seconds, during a Session
+    ///summary
     public float GetWorkTime()
     {
         float wt = GetDuration() - GetBreakTime();

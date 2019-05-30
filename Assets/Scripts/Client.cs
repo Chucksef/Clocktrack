@@ -10,8 +10,14 @@ public class Client {
     public string Email;
     public string Phone;
     public Project[] allProjects;
+
+    //ALL FUNCTIONS GO HERE...
+
+    ///summary
+    ///Gets the number of PROJECTS attributed to a client
+    ///summary
     public int GetProjectCount()
     {
-    	return allProjects.Length;
+    	return allProjects.Length + 1;
     }
 }
