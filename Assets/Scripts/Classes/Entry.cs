@@ -3,37 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[System.Serializable]
 public class Entry
 {
-    public DateTime startTime;
-    public DateTime stopTime;
+    public string StartTime;
+    public string StopTime;
 
     //ALL FUNCTIONS GO HERE...
 
-    ///summary
-    ///Gets the absolute duration of an ENTRY
-    ///summary
-    public float GetDuration(string units = "seconds")
+    /// <summary>
+    /// Gets the absolute duration of an ENTRY
+    /// </summary>
+    public int GetDuration(string units = "seconds")
     {
-        TimeSpan span = stopTime.Subtract(startTime);
-        float dur = float.Parse(span.TotalSeconds.ToString());
-        units = units.toLower();
+        TimeSpan span = System.Convert.ToDateTime(StopTime).Subtract(System.Convert.ToDateTime(StartTime));
+        int dur = int.Parse(span.TotalSeconds.ToString());
+        units = units.ToLower();
         switch (units)
         {
         	case "minutes":
         	case "min":
         	case "m":
-        		//put cude for minutes here.
+        		//put code for minutes here.
         		break;
         	case "hours":
         	case "hr":
         	case "hrs":
         	case "h":
-        		//put cude for hours here.
+        		//put code for hours here.
         		break;
         	case "days" :
         	case "d":
-        		//put cude for days here.
+        		//put code for days here.
         		break;
         	default:
         		//put code for seconds here.

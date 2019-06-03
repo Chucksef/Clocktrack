@@ -1,0 +1,32 @@
+{
+	"allClients": [
+		{
+			"First_Name": "Don",
+			"Last_Name": "Julio",
+			"Company": "DJ's DJs",
+			"Email": "donjulio@djsdjs.com",
+			"Phone": "(445) 618-2566",
+			"allProjects": [
+                {
+					"Name": "DonJulio.com Website",
+					"PayRate": 40.00,
+					"allSessions": [
+						{
+							"StartTime": "6/3/2019 3:15:48 PM",
+							"StopTime": "6/3/2019 3:45:48 PM",
+							"Invoiced": true,
+							"Paid": true,
+							"Notes": "",
+							"allBreaks": [
+								{
+									"StartTime": "6/3/2019 3:25:48 PM",
+									"StopTime": "6/3/2019 3:35:48 PM"
+								}
+							]
+						}
+					]
+                }
+            ]
+		}
+	]
+}
