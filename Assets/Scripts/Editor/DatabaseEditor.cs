@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-public class FanDataEditor : EditorWindow
+public class DatabaseEditor : EditorWindow
 {
     public ClientDatabase clientDatabase;
     private string DataProjectFilePath = "/StreamingAssets/data.json";
@@ -12,7 +12,7 @@ public class FanDataEditor : EditorWindow
     [MenuItem("Window/Game Data Editor")]
     static void Init()
     {
-        FanDataEditor window = (FanDataEditor)EditorWindow.GetWindow(typeof(FanDataEditor));
+        DatabaseEditor window = (DatabaseEditor)EditorWindow.GetWindow(typeof(DatabaseEditor));
         window.Show();
     }
 

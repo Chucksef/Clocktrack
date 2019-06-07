@@ -30,10 +30,13 @@ public class UIAnimator : MonoBehaviour
     public AnimationCurve easeAccel = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
     public AnimationCurve easeDecel = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
 
+    [Header("Object Template")]
     public GameObject objectTemplate;
 
     Color warnColor = new Color(1, 0.2980392f, 0.2980392f);
-    Color selectedColor = new Color(1f, 1f, 1f);
+    Color normalColor = new Color(1f, 1f, 1f);
+
+    [Header("Warn Colorblock")]
     ColorBlock warnCB = new ColorBlock();
     ColorBlock goodCB = new ColorBlock();
     ColorBlock selectedCB = new ColorBlock();
@@ -54,13 +57,11 @@ public class UIAnimator : MonoBehaviour
 
         //These lines store new colorblock data into goodCB and warnCB
         goodCB = objectTemplate.GetComponent<InputField>().colors; //both based on existing colorblock...
-
         selectedCB = goodCB;
-        selectedCB.normalColor = selectedColor;
+        selectedCB.normalColor = normalColor;
         selectedCB.fadeDuration = 0f;
-        selectedCB.highlightedColor = selectedColor;
-        selectedCB.disabledColor = selectedColor;
-
+        selectedCB.highlightedColor = normalColor;
+        selectedCB.disabledColor = normalColor;
         warnCB = goodCB;
         warnCB.normalColor = warnColor;
         warnCB.fadeDuration = 0f;
@@ -73,8 +74,8 @@ public class UIAnimator : MonoBehaviour
 
     public IEnumerator DelayedPositionOnLaunch()
     {
-        yield return new WaitForSeconds(0.2f);
-        //Wait for .2seconds, then put everythign in position.
+        yield return new WaitForSeconds(0.1f);
+        //Wait, then put everythign in position.
         for (int i = 1; i < allNonMainPanels.Length; i++)
         {
             StartPosition(allNonMainPanels[i]);
@@ -86,7 +87,7 @@ public class UIAnimator : MonoBehaviour
     /// </summary>
     /// <param name="rt">The RectTransform to be animated</param>
     /// <param name="endPos">A Vector2 that contains the coordinates where the rt should finish animating</param>
-    /// <param name="delay">Any delay in seconds before the start of this animation</param>
+    /// <param name="delay">A Float, in seconds, before the start of this animation</param>
     /// <returns></returns>
     public IEnumerator FlyIn(RectTransform rt, Vector2 endPos, float delay)
     {
@@ -110,9 +111,9 @@ public class UIAnimator : MonoBehaviour
     /// Animates RectTransform from its current position to out of screen in whichever direction specified.
     /// </summary>
     /// <param name="rt">The RectTransform to be animated</param>
-    /// <param name="dir">The Direction the rt should move</param>
+    /// <param name="dir">A string direction ("up", "right", "top", "south", etc...) the rt should move</param>
     /// <returns></returns>
-    public IEnumerator FlyOut(RectTransform rt, string dir)
+    public IEnumerator FlyOut(RectTransform rt, string dir, float custTime = -1f)
     {
         //RectTransform objects to store the transforms of the main panel
         var rt_main = cv.GetComponent<RectTransform>();
@@ -159,6 +160,11 @@ public class UIAnimator : MonoBehaviour
                 endPos.y = 5000f;
                 Debug.LogError("FlyOut(): No Valid Direction Declared");
                 break;
+        }
+
+        if(custTime >= 0)
+        {
+            animTime = custTime + .00001f;
         }
 
         for (float i = 0f; i < animTime; i = i + Time.deltaTime)

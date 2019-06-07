@@ -11,18 +11,12 @@ public class ClientItem : MonoBehaviour {
     public Text totalTime;
 
     private Client client;
-    private ClientList clientList;
-    
-    void Start()
-    {
 
-    }
-
-    public void Setup(Client currentClient, ClientList currentClientList)
+    public void SetupClient(Client currentClient)
     {
         client = currentClient;
         clientName.text = client.First_Name + " " + client.Last_Name;
-        totalProjects.text = client.GetProjectCount().ToString();
+        totalProjects.text = "Projects: "+client.GetProjectCount().ToString();
 
         float allTime = 0f;
         for (int i = 0; i < client.allProjects.Length; i++)
@@ -30,10 +24,6 @@ public class ClientItem : MonoBehaviour {
             allTime += client.allProjects[i].GetTotalWorkTime();
         }
 
-        totalTime.text = allTime.ToString();
-
-        clientList = currentClientList;
-
-
+        totalTime.text = "Hours: "+(Mathf.Round((allTime/3600)*100)/100).ToString();
     }
 }

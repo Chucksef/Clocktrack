@@ -13,13 +13,13 @@ TagManager:
   - UI
   - 
   - 
+  - 
+  - 
   - MainMenu
   - SessionRecorder
-  - DBViewer
   - DBManager
+  - DBViewer
   - DateTimeEntry
-  - 
-  - 
   - 
   - 
   - 

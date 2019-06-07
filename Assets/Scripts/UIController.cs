@@ -10,4 +10,19 @@ public class UIController : MonoBehaviour {
 	void Start () {
         Screen.fullScreen = false;
 	}
+
+    public void FlyIn(GameObject showMe)
+    {
+        StartCoroutine(uiAnimator.FlyIn(showMe.GetComponent<RectTransform>(), new Vector2(0, 0), 0f));
+    }
+
+    public void FlyOut(GameObject hideMe)
+    {
+        StartCoroutine(uiAnimator.FlyOut(hideMe.GetComponent<RectTransform>(), "right"));
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
