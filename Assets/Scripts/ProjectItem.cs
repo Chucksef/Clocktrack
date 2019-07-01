@@ -12,9 +12,14 @@ public class ProjectItem : MonoBehaviour {
     public Text projectHours;
 
     private Project project;
+    public int clientIndex;
+    public int projectIndex;
 
-    public void SetupProject(Project currentProject)
+    public void SetupProject(Project currentProject, int c, int p)
     {
+        clientIndex = c;
+        projectIndex = p;
+
         project = currentProject;
         projectName.text = project.Name;
         projectRate.text = "Rate: $" + (Mathf.Round(project.PayRate * 100)/100) + "/hr";

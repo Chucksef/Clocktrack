@@ -18,7 +18,15 @@ public class UIAnimator : MonoBehaviour
     public GameObject panel_DatabaseManager;
     public GameObject panel_DateTimeEnter;
 
-    private GameObject[] allNonMainPanels;
+
+    [SerializeField]
+    private GameObject[] rightPanels;
+    [SerializeField]
+    private GameObject[] bottomPanels;
+    [SerializeField]
+    private GameObject[] leftPanels;
+    [SerializeField]
+    private GameObject[] topPanels;
 
     [Header("Timing Values")]
     [Range(.1f, 1.25f)]
@@ -41,18 +49,12 @@ public class UIAnimator : MonoBehaviour
     ColorBlock goodCB = new ColorBlock();
     ColorBlock selectedCB = new ColorBlock();
 
+    private float tempTime;
+
 
     //runs at start
     void Start()
     {
-        allNonMainPanels = new GameObject[5];
-
-        allNonMainPanels[0] = panel_MainMenu;
-        allNonMainPanels[1] = panel_SessionRecorder;
-        allNonMainPanels[2] = panel_DatabaseViewer;
-        allNonMainPanels[3] = panel_DatabaseManager;
-        allNonMainPanels[4] = panel_DateTimeEnter;
-
         panel_MainMenu.transform.localPosition = new Vector2(0, 0);
 
         //These lines store new colorblock data into goodCB and warnCB
@@ -76,9 +78,21 @@ public class UIAnimator : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         //Wait, then put everythign in position.
-        for (int i = 1; i < allNonMainPanels.Length; i++)
+        for (int i = 0; i < rightPanels.Length; i++)
         {
-            StartPosition(allNonMainPanels[i]);
+            StartCoroutine(FlyOut(rightPanels[i].GetComponent<RectTransform>(), "right", 0f));
+        }
+        for(int i = 0; i < bottomPanels.Length; i++)
+        {
+            StartCoroutine(FlyOut(bottomPanels[i].GetComponent<RectTransform>(), "down", 0f));
+        }
+        for (int i = 0; i < leftPanels.Length; i++)
+        {
+            StartCoroutine(FlyOut(leftPanels[i].GetComponent<RectTransform>(), "left", 0f));
+        }
+        for (int i = 0; i < topPanels.Length; i++)
+        {
+            StartCoroutine(FlyOut(topPanels[i].GetComponent<RectTransform>(), "top", 0f));
         }
     }
 
@@ -151,7 +165,7 @@ public class UIAnimator : MonoBehaviour
 
             case "left":
             case "west":
-                endPos.x = -(rect_main.height + (rect_this.height - rect_main.height) / 2);
+                endPos.x = -(rect_main.width + (rect_this.width - rect_main.width) / 2);
                 endPos.y = 0f;
                 break;
 
@@ -161,15 +175,18 @@ public class UIAnimator : MonoBehaviour
                 Debug.LogError("FlyOut(): No Valid Direction Declared");
                 break;
         }
-
         if(custTime >= 0)
         {
-            animTime = custTime + .00001f;
+            tempTime  = custTime + .00001f;
+        }
+        else
+        {
+            tempTime = animTime;
         }
 
-        for (float i = 0f; i < animTime; i = i + Time.deltaTime)
+        for (float i = 0f; i < tempTime; i = i + Time.deltaTime)
         {
-            var timePCT = i / animTime;
+            var timePCT = i / tempTime;
             Vector2 currentPos = new Vector2(Mathf.Lerp(startPos.x, endPos.x, easeAccel.Evaluate(timePCT)), Mathf.Lerp(startPos.y, endPos.y, easeAccel.Evaluate(timePCT)));
             rt.localPosition = new Vector2(currentPos.x, currentPos.y);
             yield return null;
@@ -177,6 +194,7 @@ public class UIAnimator : MonoBehaviour
 
         rt.localPosition = endPos;
         rt.gameObject.SetActive(false);
+        
     }
 
     /// <summary>

@@ -11,9 +11,11 @@ public class ClientItem : MonoBehaviour {
     public Text totalTime;
 
     private Client client;
+    public int clientIndex;
 
-    public void SetupClient(Client currentClient)
+    public void SetupClient(Client currentClient, int c)
     {
+        clientIndex = c;
         client = currentClient;
         clientName.text = client.First_Name + " " + client.Last_Name;
         totalProjects.text = "Projects: "+client.GetProjectCount().ToString();

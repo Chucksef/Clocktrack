@@ -16,9 +16,21 @@ public class UIController : MonoBehaviour {
         StartCoroutine(uiAnimator.FlyIn(showMe.GetComponent<RectTransform>(), new Vector2(0, 0), 0f));
     }
 
-    public void FlyOut(GameObject hideMe)
+    public void FlyOutRight(GameObject hideMe)
     {
         StartCoroutine(uiAnimator.FlyOut(hideMe.GetComponent<RectTransform>(), "right"));
+    }
+    public void FlyOutTop(GameObject hideMe)
+    {
+        StartCoroutine(uiAnimator.FlyOut(hideMe.GetComponent<RectTransform>(), "top"));
+    }
+    public void FlyOutBottom(GameObject hideMe)
+    {
+        StartCoroutine(uiAnimator.FlyOut(hideMe.GetComponent<RectTransform>(), "bottom"));
+    }
+    public void FlyOutLeft(GameObject hideMe)
+    {
+        StartCoroutine(uiAnimator.FlyOut(hideMe.GetComponent<RectTransform>(), "left"));
     }
 
     public void Quit()

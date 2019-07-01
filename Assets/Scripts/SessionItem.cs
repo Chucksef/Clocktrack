@@ -13,9 +13,15 @@ public class SessionItem : MonoBehaviour
     public Image sessionPaid;
 
     private Session session;
+    public int clientIndex;
+    public int projectIndex;
+    public int sessionIndex;
 
-    public void SetupSession(Session currentSession)
+    public void SetupSession(Session currentSession, int c, int p, int s)
     {
+        clientIndex = c;
+        projectIndex = p;
+        sessionIndex = s;
         session = currentSession;
 
         sessionDate.text = session.StartTime.Split( )[0];

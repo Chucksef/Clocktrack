@@ -141,19 +141,34 @@ public class DBManager : MonoBehaviour {
         ReloadAndReset();
     }
 
-    public void AddProject(Project newProject, int idx)
+    public void AddProject(Project newProject, int clientIdx)
     {
         List<Project> newProjectList = new List<Project>();
-        foreach (Project item in clientDatabase.allClients[idx].allProjects)
+        foreach (Project item in clientDatabase.allClients[clientIdx].allProjects)
         {
             newProjectList.Add(item);
         }
         newProjectList.Add(newProject);
 
-        clientDatabase.allClients[idx].allProjects = newProjectList.ToArray();
-        Debug.Log(clientDatabase.allClients[idx].allProjects.ToString());
+        clientDatabase.allClients[clientIdx].allProjects = newProjectList.ToArray();
+        Debug.Log(clientDatabase.allClients[clientIdx].allProjects.ToString());
         SaveGameData();
         ReloadAndReset();
+    }
+
+    public void RemoveClient(int clientIdx)
+    {
+
+    }
+
+    public void RemoveProject(int clientIdx, int projectIdx)
+    {
+
+    } 
+
+    public void RemoveSession(int clientIdx, int projectIdx, int sessionIdx)
+    {
+
     }
 
     private void DestroyReadoutChildren()
@@ -170,11 +185,12 @@ public class DBManager : MonoBehaviour {
         for (int i = 0; i < clientList.Count; i++)
         {
             Client client = clientList[i];
+
             GameObject newClient = clientPool.GetObject();
             newClient.transform.SetParent(readout.transform, false);
 
             ClientItem clientItem = newClient.GetComponent<ClientItem>();
-            clientItem.SetupClient(client);
+            clientItem.SetupClient(client, i);
         }
     }
 
@@ -189,7 +205,7 @@ public class DBManager : MonoBehaviour {
             newProject.transform.SetParent(readout.transform, false);
 
             ProjectItem projectItem = newProject.GetComponent<ProjectItem>();
-            projectItem.SetupProject(project);
+            projectItem.SetupProject(project, clientID, i);
 
         }
     }
@@ -205,7 +221,7 @@ public class DBManager : MonoBehaviour {
             newSession.transform.SetParent(readout.transform, false);
 
             SessionItem sessionItem = newSession.GetComponent<SessionItem>();
-            sessionItem.SetupSession(session);
+            sessionItem.SetupSession(session, clientID, projectID, i);
 
         }
     }
